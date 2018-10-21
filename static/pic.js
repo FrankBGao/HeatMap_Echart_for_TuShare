@@ -27,23 +27,23 @@ function heat_map(data) {
                 var value = node.value;
 
                 // Scale value for visual effect
-                if (value[2] != null && value[2] > 0) {
-                    value[3] = echarts.number.linearMap(
-                        value[2], [0, max], [visualMaxBound, visualMax], true
-                    );
-                }
-                else if (value[2] != null && value[2] < 0) {
-                    value[3] = echarts.number.linearMap(
-                        value[2], [min, 0], [visualMin, visualMinBound], true
-                    );
-                }
-                else {
-                    value[3] = 0;
-                }
-
-                if (!isFinite(value[3])) {
-                    value[3] = 0;
-                }
+                // if (value[2] != null && value[2] > 0) {
+                //     value[3] = echarts.number.linearMap(
+                //         value[2], [0, max], [visualMaxBound, visualMax], true
+                //     );
+                // }
+                // else if (value[2] != null && value[2] < 0) {
+                //     value[3] = echarts.number.linearMap(
+                //         value[2], [min, 0], [visualMin, visualMinBound], true
+                //     );
+                // }
+                // else {
+                //     value[3] = 0;
+                // }
+                //
+                // if (!isFinite(value[3])) {
+                //     value[3] = 0;
+                // }
 
                 if (node.children) {
                     convertData(node.children);
@@ -67,26 +67,34 @@ function heat_map(data) {
             formatter: function (info) {
                 var value = info.value;
 
-                var amount = value[2];
-                amount = isValidNumber(amount)
-                    ? echarts.format.addCommas(amount * 1000) + ''
-                    : '-';
+                // var rate = value[0];
+                // rate = isValidNumber(rate)
+                //     ? rate.toFixed(2) + '%'
+                //     : '-';
 
-                var amount2011 = value[1];
-                amount2011 = isValidNumber(amount2011)
-                    ? echarts.format.addCommas(amount2011 * 1000) + ''
-                    : '-';
-
-                var change = value[0];
+                var change = value[1];
                 change = isValidNumber(change)
                     ? change.toFixed(2) + '%'
+                    : '-';
+                var open = value[2];
+                open = isValidNumber(open)
+                    ? echarts.format.addCommas(open) + ''
+                    : '-';
+                var high = value[3];
+                high = isValidNumber(high)
+                    ? echarts.format.addCommas(high) + ''
+                    : '-';
+                var low = value[4];
+                low = isValidNumber(low)
+                    ? echarts.format.addCommas(low) + ''
                     : '-';
 
                 return [
                     '<div class="tooltip-title">' + echarts.format.encodeHTML(info.name) + '</div>',
-                    '1: &nbsp;&nbsp;' + amount2011 + '<br>',
-                    '2: &nbsp;&nbsp;' + amount + '<br>',
-                    '3: &nbsp;&nbsp;' + change
+                    '涨幅: &nbsp;&nbsp;' + change + '<br>',
+                    '开盘: &nbsp;&nbsp;' + open + '<br>',
+                    '最高: &nbsp;&nbsp;' + high + '<br>',
+                    '最低: &nbsp;&nbsp;' + low + '<br>',
                 ].join('');
             }
         },

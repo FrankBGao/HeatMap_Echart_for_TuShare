@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for
-
+import algorithm as alg
 app = Flask(__name__)
 
 
@@ -10,7 +10,7 @@ def hello_world():
 
 @app.route('/visualization')
 def visualization():
-    data = []
+    data = alg.gain_pic()
     return render_template("pic.html", tree=data)
 
 
