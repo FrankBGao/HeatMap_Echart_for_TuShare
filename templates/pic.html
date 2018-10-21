@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="UTF-8">
+    <title>Heatmap</title>
+    <script type="text/javascript" src="static/echarts.min.js"></script>
+    <script type="text/javascript" src="static/dataTool.min.js"></script>
+    <script type="text/javascript" src="static/pic.js"></script>
+    <script type="text/javascript" src="static/jquery-1.8.3.min.js"></script>
+</head>
+<body style="height: 100%; margin: 0">
+<div id="container" style="height: 95%"></div>
+
+<script>
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    var app = {};
+    app.title = '力引导布局';
+
+    myChart.showLoading();
+    var tree = {};
+    tree = {{ tree|safe }};
+    heat_map(tree)
+
+</script>
+</body>
+</html>
