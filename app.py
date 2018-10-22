@@ -1,17 +1,18 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, redirect
 import algorithm as alg
 app = Flask(__name__)
 
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return redirect("/visualization")
 
 
 @app.route('/visualization')
 def visualization():
-    data = alg.gain_pic()
-    return render_template("pic.html", tree=data)
+    daily, category = alg.gain_data()
+    result = alg.gain_pic(daily, category)
+    return render_template("pic.html", tree=result)
 
 
 if __name__ == '__main__':

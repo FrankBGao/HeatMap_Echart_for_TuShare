@@ -10,6 +10,6 @@ Using Echart's Treemap for visualizing more feature of data,
 
 使用TuShare作为数据源，制作了中国股市的股价的实时热力图。
 是HeatMap_for_TuShare的升级版。
-这次采用Echart的TreeMap作为图形控件，效果很棒。
+这次采用Echart的TreeMap作为图形控件，效果很棒。\n
 20181019
 ![image](https://raw.githubusercontent.com/FrankBGao/HeatMap_Echart_for_TuShare/master/pic/20181019.png)

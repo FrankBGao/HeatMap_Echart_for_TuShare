@@ -3,19 +3,17 @@ import pandas as pd
 from item import MapItem
 import json
 
-# data = ts.get_today_all()
-# category = ts.get_stock_basics()
-# category['code'] = category.index
 
-# data['code'] = data['code'] + "i"
-# data.to_excel("daily.xlsx")
-# category['code'] = category.index + "i"
-# category.to_excel("category.xlsx")
+def gain_data():
+    daily = ts.get_today_all()
+    category = ts.get_stock_basics()
+    category['code'] = category.index
+    return daily, category
 
 
-def gain_pic():
-    daily = pd.read_excel("daily.xlsx", )
-    category = pd.read_excel("category.xlsx")
+def gain_pic(daily, category):
+    # daily = pd.read_excel("daily.xlsx", )
+    # category = pd.read_excel("category.xlsx")
 
     # gain industry and clean data
     category = category[['code', 'industry']]
@@ -112,6 +110,15 @@ def gain_pic():
     return json.dumps([total_item.return_json()])
 
 
+
+# data = ts.get_today_all()
+# category = ts.get_stock_basics()
+# category['code'] = category.index
+
+# data['code'] = data['code'] + "i"
+# data.to_excel("daily.xlsx")
+# category['code'] = category.index + "i"
+# category.to_excel("category.xlsx")
 
 # print(daily.head(100))
 # print(total_cap_rate)
