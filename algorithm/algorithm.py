@@ -23,9 +23,10 @@ def gain_data(db, indus = None):
         daily = mogoIn.get_data_df(db['daily'].find({"date":now_time}))
         category = mogoIn.get_data_df(db['category'].find({"date":now_time}))
 
-    if indus is not None:
+    if indus is not None and indus != "":
         category = category[category["industry"] == indus]
-    return daily, category
+
+    return daily, category  
 
 
 def gain_pic(daily, category):
