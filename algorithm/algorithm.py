@@ -1,13 +1,30 @@
-import tushare as ts
 import pandas as pd
-from item import MapItem
+from algorithm.item import MapItem
 import json
+import datetime
+from algorithm import pymo_interface as mogoIn
+import tushare as ts
 
+def gain_data(db, indus = None):
+    now_time = datetime.datetime.now().strftime('%Y-%m-%d')
 
-def gain_data():
-    daily = ts.get_today_all()
-    category = ts.get_stock_basics()
-    category['code'] = category.index
+    have_data = db['daily'].find_one({"date":now_time})
+    if have_data is None:
+        daily = ts.get_today_all()
+        category = ts.get_stock_basics()
+
+        daily['date'] = now_time
+        category['date'] = now_time
+        category['code'] = category.index
+
+        db['daily'].insert_many(daily.to_dict(orient="records"))
+        db['category'].insert_many(category.to_dict(orient="records"))
+    else:
+        daily = mogoIn.get_data_df(db['daily'].find({"date":now_time}))
+        category = mogoIn.get_data_df(db['category'].find({"date":now_time}))
+
+    if indus is not None:
+        category = category[category["industry"] == indus]
     return daily, category
 
 
@@ -128,3 +145,5 @@ def gain_pic(daily, category):
 # industry = daily[['industry', 'mktcap']].groupby(['industry']).agg({"mktcap": sum})
 # industry["rate"] = industry["mktcap"] / industry["mktcap"].sum()
 # daily = daily['industry'].apply(lambda x: industry['mktcap'][x])
+#     daily.to_excel("daily_%s.xlsx" %str(now_time))
+#     category.to_excel("category%s.xlsx" %str(now_time))

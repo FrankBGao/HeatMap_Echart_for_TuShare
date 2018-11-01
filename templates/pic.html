@@ -7,8 +7,15 @@
     <script type="text/javascript" src="static/dataTool.min.js"></script>
     <script type="text/javascript" src="static/pic.js"></script>
     <script type="text/javascript" src="static/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="static/interaction.js"></script>
+
 </head>
 <body style="height: 100%; margin: 0">
+<div>
+    <li id="search">查询</li>
+        <input id="industry" type="text" placeholder="板块"/>
+
+</div>
 <div id="container" style="height: 95%"></div>
 
 <script>
@@ -20,7 +27,8 @@
     myChart.showLoading();
     var tree = {};
     tree = {{ tree|safe }};
-    heat_map(tree)
+    heat_map(tree);
+
 
 </script>
 </body>
